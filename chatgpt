@@ -1,0 +1,50 @@
+# Step 1: Set up Git (Run this once per device)
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+git config --global init.defaultBranch main  # Sets default branch to 'main'
+
+echo "Git setup complete!"
+
+# Step 2: Create a new GitHub repository manually, then copy its URL
+REPO_URL="https://github.com/your-username/your-repository.git"
+LOCAL_DIR="my_project"
+
+# Step 3: Clone the GitHub repository (Optional: If it already exists)
+git clone "$REPO_URL" "$LOCAL_DIR"
+cd "$LOCAL_DIR" || exit
+
+echo "Cloned repository into $LOCAL_DIR"
+
+# Step 4: Initialize Git (Only for new projects, skip if cloned)
+git init
+git remote add origin "$REPO_URL"
+
+echo "Git repository initialized"
+
+# Step 5: Create a sample project
+mkdir src
+echo "print('Hello, GitHub!')" > src/main.py
+echo "# My GitHub Project" > README.md
+echo "*.log" > .gitignore
+
+echo "Project files created"
+
+# Step 6: Stage and commit changes
+git add .
+git commit -m "Initial commit with sample Python file and README"
+
+echo "Files committed"
+
+# Step 7: Push changes to GitHub
+git push -u origin main
+
+echo "Code successfully pushed to GitHub!"
+
+# Step 8: Make changes and update repository
+echo "print('GitHub is awesome!')" >> src/main.py
+git add src/main.py
+git commit -m "Updated main.py with a new print statement"
+git push origin main
+
+echo "Update pushed successfully!"
