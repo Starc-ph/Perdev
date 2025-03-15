@@ -1,0 +1,55 @@
+# Define color codes
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+RESET='\e[0m'
+
+# Step 1: Set up Git (Run this once per device)
+echo -e "${BLUE}Setting up Git...${RESET}"
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+git config --global init.defaultBranch main  # Sets default branch to 'main'
+echo -e "${GREEN}Git setup complete!${RESET}"
+
+# Step 2: Create a new GitHub repository manually, then copy its URL
+REPO_URL="https://github.com/your-username/your-repository.git"
+LOCAL_DIR="my_project"
+
+# Step 3: Clone the GitHub repository (Optional: If it already exists)
+echo -e "${BLUE}Cloning repository...${RESET}"
+git clone "$REPO_URL" "$LOCAL_DIR"
+cd "$LOCAL_DIR" || exit
+echo -e "${GREEN}Cloned repository into $LOCAL_DIR${RESET}"
+
+# Step 4: Initialize Git (Only for new projects, skip if cloned)
+echo -e "${BLUE}Initializing Git repository...${RESET}"
+git init
+git remote add origin "$REPO_URL"
+echo -e "${GREEN}Git repository initialized${RESET}"
+
+# Step 5: Create a sample project
+echo -e "${BLUE}Creating project files...${RESET}"
+mkdir src
+echo "print('Hello, GitHub!')" > src/main.py
+echo "# My GitHub Project" > README.md
+echo "*.log" > .gitignore
+echo -e "${GREEN}Project files created${RESET}"
+
+# Step 6: Stage and commit changes
+echo -e "${BLUE}Staging and committing changes...${RESET}"
+git add .
+git commit -m "Initial commit with sample Python file and README"
+echo -e "${GREEN}Files committed${RESET}"
+
+# Step 7: Push changes to GitHub
+echo -e "${BLUE}Pushing code to GitHub...${RESET}"
+git push -u origin main
+echo -e "${GREEN}Code successfully pushed to GitHub!${RESET}"
+
+# Step 8: Make changes and update repository
+echo -e "${BLUE}Updating repository...${RESET}"
+echo "print('GitHub is awesome!')" >> src/main.py
+git add src/main.py
+git commit -m "Updated main.py with a new print statement"
+git push origin main
+echo -e "${GREEN}Update pushed successfully!${RESET}"
